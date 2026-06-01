@@ -199,6 +199,125 @@
     .todo-list::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,.28); }
 
 
+    /* ── MOVEMENT BREAK OVERLAY ── */
+    .move-overlay {
+      position:fixed; inset:0; z-index:70;
+      display:none; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55); backdrop-filter:blur(8px);
+    }
+    .move-overlay.show { display:flex; }
+    .move-card {
+      background:rgba(12,12,22,.94);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(28px);
+      border-radius:24px; padding:40px 44px;
+      width:440px; text-align:center;
+      animation:moveIn .32s cubic-bezier(.34,1.3,.64,1);
+    }
+    @keyframes moveIn {
+      from{opacity:0;transform:translateY(24px) scale(.94)}
+      to{opacity:1;transform:none}
+    }
+    /* Emoji stage with pulse ring */
+    .move-stage {
+      position:relative; width:110px; height:110px;
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 18px;
+    }
+    .move-ring {
+      position:absolute; inset:0; border-radius:50%;
+      border:2px solid rgba(173,198,255,.25);
+      animation:ringPulse 2s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0%,100%{transform:scale(1);opacity:.4}
+      50%{transform:scale(1.12);opacity:.9}
+    }
+    .move-emoji { font-size:58px; line-height:1; position:relative; z-index:1; display:block; }
+    .move-title { font-family:'Sora',sans-serif; font-size:22px; font-weight:500; margin-bottom:10px; }
+    .move-desc  { font-family:'Inter',sans-serif; font-size:14px; color:rgba(255,255,255,.48); line-height:1.65; margin-bottom:16px; }
+    .move-cd    { font-family:'JetBrains Mono',monospace; font-size:52px; font-weight:300; color:#ADC6FF; letter-spacing:-2px; margin-bottom:16px; display:none; }
+
+    /* YouTube tutorial button */
+    .move-yt {
+      display:inline-flex; align-items:center; gap:7px;
+      padding:8px 18px; border-radius:9999px; margin-bottom:20px;
+      background:rgba(255,70,70,.12); border:1px solid rgba(255,70,70,.28);
+      color:rgba(255,120,120,.9); font-family:'Inter',sans-serif; font-size:12px;
+      text-decoration:none; transition:all .18s; cursor:pointer;
+    }
+    .move-yt:hover { background:rgba(255,70,70,.22); color:white; border-color:rgba(255,100,100,.5); }
+    .move-yt svg { flex-shrink:0; }
+
+    .move-btns  { display:flex; gap:10px; justify-content:center; }
+    .move-done {
+      padding:12px 30px; border-radius:9999px;
+      background:rgba(173,198,255,.18); border:1px solid rgba(173,198,255,.4);
+      color:#ADC6FF; font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
+      cursor:pointer; transition:all .18s;
+    }
+    .move-done:hover { background:rgba(173,198,255,.32); color:white; }
+    .move-skip {
+      padding:12px 22px; border-radius:9999px;
+      background:transparent; border:1px solid rgba(255,255,255,.13);
+      color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; font-size:14px;
+      cursor:pointer; transition:all .18s;
+    }
+    .move-skip:hover { border-color:rgba(255,255,255,.28); color:rgba(255,255,255,.65); }
+    .move-tag {
+      display:inline-block; margin-bottom:16px;
+      padding:4px 12px; border-radius:9999px;
+      background:rgba(173,198,255,.1); border:1px solid rgba(173,198,255,.25);
+      font-family:'Inter',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase;
+      color:rgba(173,198,255,.7);
+    }
+
+
+    /* Toggle switch */
+    .tog-wrap { display:flex; justify-content:space-between; align-items:center; }
+    .tog {
+      width:40px; height:22px; border-radius:11px;
+      background:rgba(255,255,255,.15); cursor:pointer;
+      position:relative; transition:background .2s; flex-shrink:0;
+    }
+    .tog.on { background:rgba(173,198,255,.55); }
+    .tog::after {
+      content:''; position:absolute; top:3px; left:3px;
+      width:16px; height:16px; border-radius:50%;
+      background:white; transition:transform .2s;
+      box-shadow:0 1px 3px rgba(0,0,0,.3);
+    }
+    .tog.on::after { transform:translateX(18px); }
+
+    /* ── SOUND CARDS (inside settings) ── */
+    .sound-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:4px;
+    }
+    .sound-card {
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      padding:13px 8px; border-radius:12px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+      cursor:pointer; transition:all .18s;
+      font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.3px;
+      color:rgba(255,255,255,.45); text-align:center;
+    }
+    .sound-card:hover { background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
+    .sound-card.on { background:rgba(173,198,255,.15); border-color:rgba(173,198,255,.4); color:#ADC6FF; }
+    .sound-card .snd-icon { font-size:20px; line-height:1; }
+    .vol-row {
+      display:flex; align-items:center; gap:10px; margin-top:10px;
+    }
+    .vol-icon { font-size:13px; opacity:.45; }
+    .vol-slider {
+      flex:1; -webkit-appearance:none; height:3px;
+      background:rgba(255,255,255,.15); border-radius:2px; outline:none; cursor:pointer;
+    }
+    .vol-slider::-webkit-slider-thumb {
+      -webkit-appearance:none; width:14px; height:14px;
+      background:white; border-radius:50%; cursor:pointer;
+      box-shadow:0 1px 4px rgba(0,0,0,.3);
+    }
+
     /* ── SETTINGS PANEL ── */
     .settings-overlay {
       position:fixed; inset:0; z-index:50;
@@ -327,6 +446,40 @@
 
     <div class="settings-divider"></div>
 
+    <!-- Movement breaks -->
+    <div class="settings-divider"></div>
+    <div style="margin-bottom:24px;">
+      <div class="tog-wrap" style="margin-bottom:14px;">
+        <div>
+          <div class="settings-row-label">Movement Breaks 🏃</div>
+          <div class="settings-row-hint">Nudge to stretch during long focus sessions</div>
+        </div>
+        <div class="tog" id="move-tog" onclick="toggleMoveEnabled()"></div>
+      </div>
+      <div id="move-int-row">
+        <div class="settings-row" style="margin-top:4px;">
+          <div class="settings-row-group">
+            <div class="settings-row-label" style="font-size:13px;">Remind me every</div>
+            <div class="settings-row-hint">minutes during focus</div>
+          </div>
+          <input class="settings-input" id="s-moveint" type="number" min="1" max="120" value="30"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ambient sound picker -->
+    <div style="margin-bottom:24px;">
+      <div class="bg-section-label" style="margin-bottom:14px;">Ambient Sound</div>
+      <div class="sound-grid" id="snd-grid"></div>
+      <div class="vol-row">
+        <span class="vol-icon">🔈</span>
+        <input class="vol-slider" type="range" min="0" max="1" step="0.05"
+               value="0.6" id="vol-slider"
+               oninput="setMasterVol(parseFloat(this.value))"/>
+        <span class="vol-icon">🔊</span>
+      </div>
+    </div>
+
     <!-- Background picker -->
     <div style="margin-bottom:28px;">
       <div class="bg-section-label">Background</div>
@@ -351,6 +504,31 @@
     </svg>
   </div>
 </header>
+
+
+<!-- Movement break overlay -->
+<div class="move-overlay" id="move-overlay">
+  <div class="move-card">
+    <span class="move-tag">Movement Break</span>
+    <div class="move-stage">
+      <div class="move-ring"></div>
+      <div class="move-emoji" id="move-emoji">🙆</div>
+    </div>
+    <div class="move-title" id="move-title">Stretch time!</div>
+    <div class="move-desc"  id="move-desc">Stand up and reach for the sky.</div>
+    <div class="move-cd"    id="move-cd">30s</div>
+    <a  class="move-yt" id="move-yt" href="#" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff4444">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-2.7A12.94 12.94 0 0 0 12 3.5a12.94 12.94 0 0 0-3.82.49 4.83 4.83 0 0 1-3.77 2.7A4.78 4.78 0 0 0 2 11v2a4.78 4.78 0 0 0 2.41 4.31 4.83 4.83 0 0 1 3.77 2.7A12.94 12.94 0 0 0 12 20.5a12.94 12.94 0 0 0 3.82-.49 4.83 4.83 0 0 1 3.77-2.7A4.78 4.78 0 0 0 22 13v-2a4.78 4.78 0 0 0-2.41-4.31zM10 15V9l5 3z"/>
+      </svg>
+      Watch tutorial on YouTube
+    </a>
+    <div class="move-btns">
+      <button class="move-done" id="move-done">✓ Done!</button>
+      <button class="move-skip" onclick="dismissMove(false)">Skip →</button>
+    </div>
+  </div>
+</div>
 
 <!-- 3-col layout -->
 <div class="layout">
@@ -502,6 +680,37 @@ const BG_PRESETS = [
 // Track which bg is selected in the picker (may differ from saved until Save)
 let pickedBg = cfg.bgUrl;
 
+// ── All data declarations hoisted here to avoid TDZ errors ──
+const SOUNDS = [
+  { id:'calming-rain',   icon:'🌧️', label:'Calming Rain',     file:'sounds/calming-rain.mp3'   },
+  { id:'rainy-day-town', icon:'🌆', label:'Rainy Day in Town', file:'sounds/rainy-day-town.mp3' },
+  { id:'wind',           icon:'💨', label:'Wind',              file:'sounds/wind.mp3'            },
+  { id:'forest',         icon:'🌲', label:'Forest',            file:'sounds/forest.mp3'          },
+  { id:'bird-song',      icon:'🐦', label:'Bird Song',         file:'sounds/bird-song.mp3'       },
+];
+let currentSound = localStorage.getItem('f-sound') || 'calming-rain';
+let soundVol     = parseFloat(localStorage.getItem('f-sndvol') || '0.6');
+let audioEl      = null;
+
+const MOVES = [
+  { emoji:'🙆', title:'Reach for the sky',    desc:'Stand and stretch both arms overhead. Hold 10 seconds each side.',                             timed:false, yt:'overhead desk stretch tutorial' },
+  { emoji:'💪', title:'Quick plank!',          desc:'Get into plank position — shoulders over wrists, core tight, back flat. Hold it!',              timed:true,  secs:30, yt:'how to do a plank for beginners' },
+  { emoji:'🌀', title:'Neck rolls',            desc:'Slowly roll your neck in a full circle, 5 times each direction. Release that tension.',         timed:false, yt:'neck roll stretch office relief' },
+  { emoji:'🚶', title:'Walk it out',           desc:'Step away from your desk and walk around for a full minute. Grab some water too!',              timed:true,  secs:60, yt:'desk walking break movement exercise' },
+  { emoji:'🔄', title:'Shoulder rolls',        desc:'10 slow rolls forward, then 10 backward. Breathe deeply with each roll.',                      timed:false, yt:'shoulder roll exercise desk stretch' },
+  { emoji:'🦵', title:'Touch your toes',       desc:'Stand and slowly fold forward. Let gravity do the work — no bouncing.',                         timed:false, yt:'standing forward fold hamstring stretch' },
+  { emoji:'🏋️', title:'Wall push-ups',         desc:'Place hands on a wall at shoulder height. Do 12 slow push-ups.',                               timed:false, yt:'how to do wall push ups tutorial' },
+  { emoji:'🦶', title:'Calf raises',           desc:'Stand tall and rise up on your toes 20 times. Hold the top for a second each time.',            timed:false, yt:'standing calf raises how to' },
+  { emoji:'👀', title:'20-20-20 eye break',    desc:"Look at something 20 feet away for 20 seconds. Your eyes have earned it.",                      timed:true,  secs:20, yt:'20 20 20 rule eye strain relief' },
+  { emoji:'🙏', title:'Wrist stretch',         desc:'Extend one arm, gently pull fingers back. Hold 15 seconds each hand.',                         timed:false, yt:'wrist stretch exercise RSI prevention' },
+  { emoji:'🪑', title:'Chair squats',          desc:'Stand up slowly, hover above your seat, then sit back down. 8 reps.',                          timed:false, yt:'chair squat exercise tutorial office' },
+  { emoji:'💆', title:'Box breathing',         desc:'Inhale 4 → hold 4 → exhale 4 → hold 4. Repeat 4 times. Instant calm.',                        timed:true,  secs:64, yt:'box breathing technique tutorial' },
+  { emoji:'🤸', title:'Side stretches',        desc:'Reach one arm overhead and lean to the opposite side. 15 seconds each side.',                  timed:false, yt:'lateral side stretch standing tutorial' },
+  { emoji:'🧘', title:'Seated spinal twist',   desc:'Sit tall, twist gently to one side, hold 10 seconds. Switch sides.',                           timed:false, yt:'seated spinal twist yoga desk stretch' },
+];
+let moveEnabled = localStorage.getItem('f-moveon') !== 'false';
+let moveInt     = parseInt(localStorage.getItem('f-moveint') || '30');
+
 function applyBg(url){
   document.querySelector('.bg').style.backgroundImage =
     `linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,.5) 100%), url('${url}')`;
@@ -531,6 +740,8 @@ function openSettings(){
   document.getElementById('s-sessions').value=cfg.sessions;
   document.getElementById('s-bg-url').value='';
   renderBgPresets();
+  renderSndCards();
+  renderMoveSettings();
   document.getElementById('settings-overlay').classList.add('open');
 }
 function closeSettings(e){
@@ -546,6 +757,9 @@ function saveSettings(){
   const customUrl = document.getElementById('s-bg-url').value.trim();
   cfg.bgUrl = customUrl || pickedBg;
   localStorage.setItem('f-cfg',JSON.stringify(cfg));
+  // Movement interval
+  const mi = document.getElementById('s-moveint');
+  if (mi) { moveInt = Math.max(1, Math.min(120, parseInt(mi.value)||30)); localStorage.setItem('f-moveint', moveInt); }
   applyBg(cfg.bgUrl);
   if(!running){ switchMode(currentMode); }
   closeSettings();
@@ -562,6 +776,9 @@ let remaining=cfg.work*60;
 let totalSecs=cfg.work*60;
 let iv=null;
 let sessCompleted=0;
+// Movement (declared here to avoid temporal dead zone in toggleTimer)
+let lastMoveSec=0;
+let moveCdIv=null;
 
 const MODES={
   focus: ()=>cfg.work*60,
@@ -598,17 +815,22 @@ function stopTimer(){
   running=false;
   document.getElementById('play-btn').textContent='▶';
   document.getElementById('play-btn').classList.remove('running');
+  pauseAudio();
 }
 
 function toggleTimer(){
   playClick();
   if(running){ stopTimer(); return; }
+  lastMoveSec = 0; // reset movement tracking for new session
   running=true;
   document.getElementById('play-btn').textContent='⏸';
   document.getElementById('play-btn').classList.add('running');
+  if(currentMode==='focus') startAudio();
   iv=setInterval(()=>{
     remaining--;
     updateDisplay();
+    const elapsed = totalSecs - remaining;
+    checkMovement(elapsed);
     if(remaining<=0){ handleComplete(); }
   },1000);
 }
@@ -676,6 +898,186 @@ document.getElementById('todo-input').addEventListener('keydown',e=>{
 });
 renderTodos();
 
+
+// ── Movement Breaks ──
+// (MOVES, moveEnabled, moveInt declared at top)
+
+function toggleMoveEnabled() {
+  moveEnabled = !moveEnabled;
+  localStorage.setItem('f-moveon', moveEnabled);
+  renderMoveSettings();
+}
+
+function renderMoveSettings() {
+  const tog = document.getElementById('move-tog');
+  if (tog) tog.classList.toggle('on', moveEnabled);
+  const inp = document.getElementById('s-moveint');
+  if (inp) inp.value = moveInt;
+  const row = document.getElementById('move-int-row');
+  if (row) row.style.opacity = moveEnabled ? '1' : '0.35';
+}
+
+function checkMovement(elapsedSecs) {
+  if (!moveEnabled || currentMode !== 'focus') return;
+  const threshold = moveInt * 60;
+  if (elapsedSecs > 0 && elapsedSecs % threshold === 0 && elapsedSecs !== lastMoveSec) {
+    lastMoveSec = elapsedSecs;
+    showMove();
+  }
+}
+
+function showMove() {
+  const m = MOVES[Math.floor(Math.random() * MOVES.length)];
+  document.getElementById('move-emoji').textContent = m.emoji;
+  document.getElementById('move-title').textContent = m.title;
+  document.getElementById('move-desc').textContent  = m.desc;
+  // YouTube tutorial link
+  const ytBtn = document.getElementById('move-yt');
+  ytBtn.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(m.yt)}`;
+  ytBtn.style.display = m.yt ? 'inline-flex' : 'none';
+
+  const cdEl   = document.getElementById('move-cd');
+  const doneEl = document.getElementById('move-done');
+  clearInterval(moveCdIv);
+
+  if (m.timed) {
+    // Show timer ready — user must press Start
+    cdEl.style.display   = 'block';
+    cdEl.textContent     = m.secs + 's';
+    doneEl.textContent   = '▶  Start';
+    doneEl.style.opacity = '1';
+    doneEl.style.background = 'rgba(173,198,255,.28)';
+
+    // Override: clicking Start begins the countdown
+    doneEl.onclick = function() {
+      let s = m.secs;
+      doneEl.textContent      = 'Hold it…';
+      doneEl.style.opacity    = '0.45';
+      doneEl.style.background = '';
+      doneEl.onclick          = null; // locked during countdown
+
+      moveCdIv = setInterval(() => {
+        s--;
+        cdEl.textContent = s + 's';
+        if (s <= 0) {
+          clearInterval(moveCdIv);
+          cdEl.textContent        = '✓';
+          doneEl.textContent      = '✓ Done!';
+          doneEl.style.opacity    = '1';
+          doneEl.style.background = '';
+          doneEl.onclick          = () => dismissMove(true);
+          playChime(false);
+        }
+      }, 1000);
+    };
+  } else {
+    cdEl.style.display      = 'none';
+    doneEl.textContent      = '✓ Done!';
+    doneEl.style.opacity    = '1';
+    doneEl.style.background = '';
+    doneEl.onclick          = () => dismissMove(true);
+  }
+
+  document.getElementById('move-overlay').classList.add('show');
+  playChime(true);
+  // Speak the reminder after a short pause (let chime play first)
+  setTimeout(() => speakMove(m), 900);
+}
+
+function speakMove(m) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const msg = new SpeechSynthesisUtterance(
+    `Movement break! ${m.title}. ${m.desc}${m.timed ? ` You have ${m.secs} seconds.` : ''}`
+  );
+  msg.rate   = 0.88;
+  msg.pitch  = 1.05;
+  msg.volume = 1;
+  // Prefer a natural-sounding voice if available
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v =>
+    /Samantha|Karen|Moira|Ava|Allison|Victoria|Fiona|Google US English/i.test(v.name)
+  ) || voices.find(v => v.lang.startsWith('en') && !v.name.includes('Google')) || voices[0];
+  if (preferred) msg.voice = preferred;
+  window.speechSynthesis.speak(msg);
+}
+
+function dismissMove(done) {
+  clearInterval(moveCdIv);
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  document.getElementById('move-overlay').classList.remove('show');
+}
+
+// Pre-load speech voices (some browsers need this trigger)
+if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
+
+// Init move settings UI
+renderMoveSettings();
+
+// ── Ambient Sounds ──
+// (SOUNDS, currentSound, soundVol, audioEl declared at top)
+
+// Play a sound (select + play immediately)
+function playSound(id) {
+  // Stop previous
+  if (audioEl) { audioEl.pause(); audioEl = null; }
+  currentSound = id;
+  localStorage.setItem('f-sound', id);
+  if (id) {
+    const def = SOUNDS.find(s => s.id === id);
+    if (def) {
+      audioEl = new Audio(def.file);
+      audioEl.loop   = true;
+      audioEl.volume = soundVol;
+      audioEl.play().catch(() => {});
+    }
+  }
+  renderSndCards();
+}
+
+// Called when focus timer starts — resume if paused
+function startAudio() {
+  if (audioEl && audioEl.paused) audioEl.play().catch(() => {});
+}
+
+// Called when timer stops / break starts
+function pauseAudio() {
+  if (audioEl && !audioEl.paused) audioEl.pause();
+}
+
+function setMasterVol(v) {
+  soundVol = v;
+  localStorage.setItem('f-sndvol', v);
+  if (audioEl) audioEl.volume = v;
+}
+
+function renderSndCards() {
+  const grid = document.getElementById('snd-grid');
+  if (!grid) return;
+  grid.innerHTML = SOUNDS.map(s => `
+    <div class="sound-card ${currentSound===s.id?'on':''}" onclick="playSound('${s.id}')">
+      <span class="snd-icon">${s.icon}</span>
+      <span>${s.label}</span>
+    </div>`).join('');
+  const vs = document.getElementById('vol-slider');
+  if (vs) vs.value = soundVol;
+}
+
+// Pre-load default sound (plays on first user click due to browser policy)
+if (currentSound) {
+  const def = SOUNDS.find(s => s.id === currentSound);
+  if (def) {
+    audioEl = new Audio(def.file);
+    audioEl.loop   = true;
+    audioEl.volume = soundVol;
+    // Start playing after first interaction
+    document.addEventListener('click', () => {
+      if (audioEl && audioEl.paused) audioEl.play().catch(() => {});
+    }, { once: true });
+  }
+}
+
+renderSndCards();
 
 // ── Notes ──
 const wa=document.getElementById('wa');
