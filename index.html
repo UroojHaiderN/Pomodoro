@@ -873,8 +873,7 @@ renderDots();
 
 // ── Todos ──
 let todos=JSON.parse(localStorage.getItem('f3-todos')||'null')||[
-  {id:1,text:'Apply for UX jobs',done:false},
-  {id:2,text:'Create content',done:false}
+
 ];
 function saveTodos(){localStorage.setItem('f3-todos',JSON.stringify(todos));}
 function renderTodos(){
